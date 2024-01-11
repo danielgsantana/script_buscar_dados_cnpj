@@ -1,0 +1,78 @@
+{
+    "abertura": "20/11/2003",
+    "situacao": "ATIVA",
+    "tipo": "MATRIZ",
+    "nome": "BEM BRASIL ALIMENTOS S/A",
+    "porte": "DEMAIS",
+    "natureza_juridica": "205-4 - Sociedade Anônima Fechada",
+    "atividade_principal": [
+        {
+            "code": "10.99-6-99",
+            "text": "Fabricação de outros produtos alimentícios não especificados anteriormente"
+        }
+    ],
+    "atividades_secundarias": [
+        {
+            "code": "10.96-1-00",
+            "text": "Fabricação de alimentos e pratos prontos"
+        },
+        {
+            "code": "46.37-1-99",
+            "text": "Comércio atacadista especializado em outros produtos alimentícios não especificados anteriormente"
+        },
+        {
+            "code": "46.39-7-01",
+            "text": "Comércio atacadista de produtos alimentícios em geral"
+        },
+        {
+            "code": "47.29-6-99",
+            "text": "Comércio varejista de produtos alimentícios em geral ou especializado em produtos alimentícios não especificados anteriormente"
+        },
+        {
+            "code": "52.11-7-99",
+            "text": "Depósitos de mercadorias para terceiros, exceto armazéns gerais e guarda-móveis"
+        }
+    ],
+    "qsa": [
+        {
+            "nome": "KLINGER MORAIS VIDAL",
+            "qual": "10-Diretor"
+        },
+        {
+            "nome": "DENIO DE OLIVEIRA",
+            "qual": "16-Presidente"
+        },
+        {
+            "nome": "JOAO RICARDO DE LIMA COLEONI",
+            "qual": "10-Diretor"
+        },
+        {
+            "nome": "CELIO ZERO",
+            "qual": "10-Diretor"
+        }
+    ],
+    "logradouro": "AV JOSE JORGE AKEL",
+    "numero": "4000",
+    "municipio": "ARAXA",
+    "bairro": "JARDIM RESIDENCIAL BELA VISTA",
+    "uf": "MG",
+    "cep": "38.181-275",
+    "email": "cadastrofiscal@bembrasil.ind.br",
+    "telefone": "(34) 3669-9000",
+    "data_situacao": "20/11/2003",
+    "cnpj": "06.004.860/0001-80",
+    "ultima_atualizacao": "2024-01-10T09:09:24.182Z",
+    "status": "OK",
+    "fantasia": "",
+    "complemento": "",
+    "efr": "",
+    "motivo_situacao": "",
+    "situacao_especial": "",
+    "data_situacao_especial": "",
+    "capital_social": "100000000.00",
+    "extra": {},
+    "billing": {
+        "free": false,
+        "database": true
+    }
+}
