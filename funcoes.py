@@ -1,7 +1,7 @@
 from openpyxl import Workbook, load_workbook
 import requests
 import json
-
+import Empresa
 
 #percorrendo a planilha para adicionar na lista
 def buscar_cnpj (list):
@@ -17,10 +17,10 @@ def buscar_cnpj (list):
 
 
 # Loop sobre os CNPJs
-def buscar_cnpj_api(quantidade_cnpj, cnpj_list, token):
+def buscar_cnpj_api(cnpj_list):
     
-    dados_cnpj = []
-    
+    # Substitua "seu_token_aqui" pelo seu token real
+    token = "f2987ff033bd4550a7a208f4fc82be13c3ea145f2369561b089cba941742eda6"
     
     # Configurar os headers com o token
     headers = {
@@ -28,32 +28,41 @@ def buscar_cnpj_api(quantidade_cnpj, cnpj_list, token):
         "Content-Type": "application/json"
     }
     
-    contador = 0
+    dados_cnpj = []
 
-    for cnpj in range(quantidade_cnpj):
+    for cnpj in cnpj_list:
 
         # Construa a URL com a variável 'cnpj'
-        url = f"https://receitaws.com.br/v1/cnpj/{cnpj_list[contador]}/days/5"
+        url = f"https://receitaws.com.br/v1/cnpj/{cnpj}/days/5"
 
         # Fazer a requisição GET
         response = requests.get(url, headers=headers)
 
+        response_cnpj = []
         # Verificar se a requisição foi bem-sucedida (código 200)
         if response.status_code == 200:
             # Processar os dados da resposta
             response = response.json()
-            print(f"CNPJ:{response}")
-
-            contador = contador + 1
-            #dados_cnpj.append(response)
-
-            return response
+            
+            response_cnpj.append(Empresa.Empresa(cnpj=response['cnpj'],
+                            razao_social=response['nome'],
+                            nome_fantasia=response['fantasia'],
+                            abertura=response['abertura'],
+                            capital=response['capital_social'],
+                            email=response['email'],
+                            telefone=response['telefone'],
+                            municipio=response['municipio'],
+                            uf=response['uf'],
+                            cep=response['cep'],
+                            cnae = response.get('atividade_principal', [{}])[0].get('text', '')))
+            
+            
+            
         else:
-            contador = contador + 1
-
             # Lidar com erros
             print(f"Erro para CNPJ {cnpj}: {response.status_code} - {response.text}")
 
+    return response_cnpj
 
 def tratar_dados_api (objetos_api):
     objeto_tratado = {
@@ -70,5 +79,3 @@ def tratar_dados_api (objetos_api):
         "CEP": None,
         "CNAE Principal": None,
     }
-
-    objeto_tratado.cnpj =  objetos_api.

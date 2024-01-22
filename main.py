@@ -3,10 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import funcoes
-
-
-# Substitua "seu_token_aqui" pelo seu token real
-token = "f2987ff033bd4550a7a208f4fc82be13c3ea145f2369561b089cba941742eda6"
+import re
+import time
 
 
 #importando a planilha
@@ -18,39 +16,37 @@ aba_ativa = planilha.active
 #pagina = planilha['companies']
     
 
-#percorrendo a planilha para adicionar na lista
+# Percorrendo a planilha para adicionar na lista
 empresasList = funcoes.buscar_cnpj(aba_ativa)
 
-#Inicia o uma instância do google webdriver
+# Inicia o uma instância do google webdriver
 service = Service()
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=options)
 
-#acessando a URL
+# Acessando a URL
 url = 'https://cnpj.linkana.com/'
-driver.get(url)
 
+# Pesquisando os nomes das empresas da planilha e adicionando em uma lista
+cnpj_list= []
+for name in empresasList:
+    driver.get(url)
+    time.sleep(0.5)
+    driver.find_element(By.XPATH, '//*[@id="q"]').click()
+    driver.find_element(By.XPATH, '//*[@id="q"]').send_keys(name)
+    driver.find_element(By.XPATH, '/html/body/div[1]/main/div[1]/div/div[2]/form/div/input[2]').click()
+    time.sleep(0.5)
+    c = driver.find_element(By.XPATH, '/html/body/div/main/div/div/a/div/div/p[2]').text
 
-fake_cnpj = []
+    cnpj = re.sub(r'[^0-9]', '', c)
 
-#Realizando a pesquisa
-driver.find_element(By.XPATH, '//*[@id="q"]').click()
-driver.find_element(By.XPATH, '//*[@id="q"]').send_keys(empresasList[0])
-driver.find_element(By.XPATH, '/html/body/div[1]/main/div[1]/div/div[2]/form/div/input[2]').click()
+    cnpj_list.append(cnpj) #talvez substituir o nome da empresa na 'empresaList' pelo cnpj
 
-
-#fake_cnpj [0] = empresasList[0]
-qtdEmpresas = len(empresasList)
 
 empresas_result = []
+for cnpj in cnpj_list:
+    empresas_result = funcoes.buscar_cnpj_api(cnpj_list)
 
-for i in range(qtdEmpresas):
-    empresas_result.append(funcoes.buscar_cnpj_api(qtdEmpresas, empresasList, token))
+#nao esta retornando uma lista com os dados da empresa
 
-#print(response)
-
-empresa1 = empresas_result[0] # tratar os dados para somente oq é necessario adicionar na planilha
-
-print(empresa1['nome'])
-print(empresas_result[1])
-print(empresas_result[2].nome)
+print('ola mundo')
