@@ -13,7 +13,7 @@ planilha = load_workbook("teste.xlsx")
 #definindo a aba ativa
 aba_ativa = planilha.active
 #pagina = planilha['deals list']
-#pagina = planilha['companies']
+pagina = planilha['companies']
     
 
 # Percorrendo a planilha para adicionar na lista
@@ -43,10 +43,11 @@ for name in empresasList:
     cnpj_list.append(cnpj) #talvez substituir o nome da empresa na 'empresaList' pelo cnpj
 
 
-empresas_result = []
-for cnpj in cnpj_list:
-    empresas_result = funcoes.buscar_cnpj_api(cnpj_list)
 
-#nao esta retornando uma lista com os dados da empresa
+empresas_result = funcoes.buscar_cnpj_api(cnpj_list)
+
+
+
+
 
 print('ola mundo')

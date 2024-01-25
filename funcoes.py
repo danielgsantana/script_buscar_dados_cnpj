@@ -30,6 +30,7 @@ def buscar_cnpj_api(cnpj_list):
     
     dados_cnpj = []
 
+    response_cnpj = []
     for cnpj in cnpj_list:
 
         # Construa a URL com a variável 'cnpj'
@@ -38,13 +39,13 @@ def buscar_cnpj_api(cnpj_list):
         # Fazer a requisição GET
         response = requests.get(url, headers=headers)
 
-        response_cnpj = []
+        
         # Verificar se a requisição foi bem-sucedida (código 200)
         if response.status_code == 200:
             # Processar os dados da resposta
             response = response.json()
             
-            response_cnpj.append(Empresa.Empresa(cnpj=response['cnpj'],
+            objeto = Empresa.Empresa(cnpj=response['cnpj'],
                             razao_social=response['nome'],
                             nome_fantasia=response['fantasia'],
                             abertura=response['abertura'],
@@ -54,9 +55,9 @@ def buscar_cnpj_api(cnpj_list):
                             municipio=response['municipio'],
                             uf=response['uf'],
                             cep=response['cep'],
-                            cnae = response.get('atividade_principal', [{}])[0].get('text', '')))
+                            cnae = response.get('atividade_principal', [{}])[0].get('text', ''))
             
-            
+            response_cnpj.append(objeto)
             
         else:
             # Lidar com erros
