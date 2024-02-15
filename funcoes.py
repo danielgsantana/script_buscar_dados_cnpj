@@ -57,7 +57,6 @@ def buscar_cnpj (empresasList) :
         except NoSuchElementException:
             c = f"{name}"     # parei aqui, não posso adicionar uma string em uma lista de inteiro
             cnpj_list.append(c)
-        
 
     return cnpj_list
 
@@ -85,24 +84,47 @@ def buscar_cnpj_api(cnpj_list) :
         response = requests.get(url, headers=headers)
 
         
+            
+
+
+
         # Verificar se a requisição foi bem-sucedida (código 200)
         if response.status_code == 200:
-            # Processar os dados da resposta
-            response = response.json()
-            
-            objeto = Empresa.Empresa(cnpj=response['cnpj'],
-                            razao_social=response['nome'],
-                            nome_fantasia=response['fantasia'],
-                            abertura=response['abertura'],
-                            capital=response['capital_social'],
-                            email=response['email'],
-                            telefone=response['telefone'],
-                            municipio=response['municipio'],
-                            uf=response['uf'],
-                            cep=response['cep'],
-                            cnae = response.get('atividade_principal', [{}])[0].get('text', ''))
-            
-            response_cnpj.append(objeto)
+
+            if isinstance(cnpj, str):
+                    
+                objeto = Empresa.Empresa(cnpj= "0",
+                                razao_social= "0",
+                                nome_fantasia= "0",
+                                abertura= "0",
+                                capital= "0",
+                                email= "0",
+                                telefone= "0",
+                                municipio= "0",
+                                uf= "0",
+                                cep= "0",
+                                cnae =  "0")
+
+                response_cnpj.append(objeto)
+                
+
+            else:
+                # Processar os dados da resposta
+                response = response.json()
+
+                objeto = Empresa.Empresa(cnpj=response['cnpj'],
+                                razao_social=response['nome'],
+                                nome_fantasia=response['fantasia'],
+                                abertura=response['abertura'],
+                                capital=response['capital_social'],
+                                email=response['email'],
+                                telefone=response['telefone'],
+                                municipio=response['municipio'],
+                                uf=response['uf'],
+                                cep=response['cep'],
+                                cnae = response.get('atividade_principal', [{}])[0].get('text', ''))
+
+                response_cnpj.append(objeto)
             
         else:
             # Lidar com erros
