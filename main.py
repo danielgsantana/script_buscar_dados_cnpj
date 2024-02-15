@@ -24,5 +24,3 @@ empresas_result = funcoes.buscar_cnpj_api(cnpj_list)
 
 funcoes.adicionar_dados_planilha(empresasList, empresas_result)
 
-
-print('ola mundo')
