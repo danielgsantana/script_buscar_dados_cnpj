@@ -1,2 +1,0 @@
-curl --location 'https://receitaws.com.br/v1/cnpj/06004860000180/days/5' \
---header 'Authorization: Bearer f2987ff033bd4550a7a208f4fc82be13c3ea145f2369561b089cba941742eda6'

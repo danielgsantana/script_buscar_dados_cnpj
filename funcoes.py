@@ -15,10 +15,15 @@ def capturar_cnpj (list) :
     
     empresasList = []
     for celula in list["A"]:
-        empresasList.append(celula.value)
 
-    #del empresasList[0]
-    #del empresasList[0]
+        # Removendo caracteres especiais usando expressões regulares
+        d = re.sub(r'[^A-Za-z0-9 ]+', '', celula.value)
+
+        # Substituindo dois espaços consecutivos por apenas um espaço
+        empresa = re.sub(r'  +', ' ', d)
+
+        empresasList.append(empresa)
+
 
     return empresasList
 
@@ -72,49 +77,10 @@ def buscar_cnpj_api(cnpj_list) :
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
     }
-    
-    dados_cnpj = []
 
     response_cnpj = []
     for cnpj in cnpj_list:
         
-
-        # Verificar se a requisição foi bem-sucedida (código 200)
-        if response.status_code == 200:
-
-            if isinstance(cnpj, str):
-                    
-                objeto = Empresa.Empresa(cnpj= "0",
-                                razao_social= "0",
-                                nome_fantasia= "0",
-                                abertura= "0",
-                                capital= "0",
-                                email= "0",
-                                telefone= "0",
-                                municipio= "0",
-                                uf= "0",
-                                cep= "0",
-                                cnae =  "0")
-
-                response_cnpj.append(objeto)
-            else:
-                # Processar os dados da resposta
-                response = response.json()
-
-                objeto = Empresa.Empresa(cnpj=response['cnpj'],
-                                razao_social=response['nome'],
-                                nome_fantasia=response['fantasia'],
-                                abertura=response['abertura'],
-                                capital=response['capital_social'],
-                                email=response['email'],
-                                telefone=response['telefone'],
-                                municipio=response['municipio'],
-                                uf=response['uf'],
-                                cep=response['cep'],
-                                cnae = response.get('atividade_principal', [{}])[0].get('text', ''))
-
-                response_cnpj.append(objeto)
-
         if cnpj == "CNPJ não encontrado":
             c = Empresa.Empresa(cnpj='erro',
                                 razao_social= 'erro',
@@ -129,6 +95,7 @@ def buscar_cnpj_api(cnpj_list) :
                                 cnae = 'erro')
             
             response_cnpj.append(c)
+            
         else:
             # Construa a URL com a variável 'cnpj'
             url = f"https://receitaws.com.br/v1/cnpj/{cnpj}/days/5"
