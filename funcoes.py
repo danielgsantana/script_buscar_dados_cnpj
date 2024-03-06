@@ -79,7 +79,7 @@ def buscar_cnpj (empresasList) :
 def fazer_requisicao (cnpj) :
     
     # Substitua "seu_token_aqui" pelo seu token real
-    token = "f2987ff033bd4550a7a208f4fc82be13c3ea145f2369561b089cba941742eda6"
+    token = "your token here"
     
     # Configurar os headers com o token
     headers = {
@@ -88,7 +88,7 @@ def fazer_requisicao (cnpj) :
     }
 
     # Construa a URL com a variável 'cnpj'
-    url = f"https://receitaws.com.br/v1/cnpj/{cnpj}/days/5"
+    url = f"your URL API here"
        
     try:
         # Fazer a requisição GET
